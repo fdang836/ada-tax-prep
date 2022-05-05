@@ -1,6 +1,7 @@
 from ada_tax_prep.income_tax import (
     calculate_tax_2020, calculate_deducted_income_2020
 )
+import pytest
 
 
 def test_no_income():
@@ -102,7 +103,7 @@ def test_big_bracket_last():
 
     assert taxes == 988 + 3630 + 9988 + 18666 + 14096 + 108868 + 178192
 
-# @pytest.fixture
+@pytest.fixture
 def all_valid_deductions():
     return {
         "charity": 5000,
@@ -112,7 +113,7 @@ def all_valid_deductions():
         "healthcare": 5000
     }    
 
-# @pytest.fixture
+@pytest.fixture
 def some_invalid_deductions():
     return {
         "charity": 5000,
@@ -122,7 +123,7 @@ def some_invalid_deductions():
         "not_allowed": 5000
     }    
 
-# @pytest.fixture
+@pytest.fixture
 def few_valid_deductions():
     return {
         "charity": 5000,
@@ -142,7 +143,7 @@ def test_applies_standard_deduction():
 
     deducted_income = calculate_deducted_income_2020(income, {})
 
-    assert deducted_income == 40000
+    assert deducted_income == 37600
 
 def test_applies_itemized_deductions(all_valid_deductions):
     income = 50000
